@@ -26,7 +26,6 @@ int main() {
         }
     }
 
-    std::cout << "\n--- RESULTADOS ---\n";
 
   
     std::cout << "Números pares digitados: ";
