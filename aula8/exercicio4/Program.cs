@@ -24,6 +24,11 @@ class Program
 
     static void Main()
     {
+        menuPrincipal();
+    }
+
+    static void menuPrincipal()
+    {
         int opcao;
 
         do
@@ -33,6 +38,7 @@ class Program
             Console.WriteLine("3 - Exibir Equipe");
             Console.WriteLine("4 - Sair");
             Console.Write("Opção: ");
+
             opcao = int.Parse(Console.ReadLine());
 
             switch (opcao)
@@ -75,6 +81,12 @@ class Program
 
     static void selecionarEquipe()
     {
+        if (qtdHerois < 3)
+        {
+            Console.WriteLine("Cadastre pelo menos 3 heróis.");
+            return;
+        }
+
         Console.WriteLine("\nHeróis cadastrados:");
 
         for (int i = 0; i < qtdHerois; i++)
@@ -84,8 +96,14 @@ class Program
 
         for (int i = 0; i < 3; i++)
         {
-            Console.Write($"Escolha o herói {i + 1}: ");
-            int escolha = int.Parse(Console.ReadLine());
+            int escolha;
+
+            do
+            {
+                Console.Write($"Escolha o herói {i + 1}: ");
+                escolha = int.Parse(Console.ReadLine());
+            }
+            while (escolha < 1 || escolha > qtdHerois);
 
             equipe.Herois[i] = herois[escolha - 1];
         }
@@ -105,6 +123,12 @@ class Program
 
     static void exibirEquipe()
     {
+        if (string.IsNullOrEmpty(equipe.Herois[0].Nome))
+        {
+            Console.WriteLine("Nenhuma equipe foi selecionada.");
+            return;
+        }
+
         Console.WriteLine("\n=== EQUIPE ===");
 
         for (int i = 0; i < 3; i++)
@@ -115,6 +139,6 @@ class Program
                 $"{equipe.Herois[i].Pontuacao} pontos");
         }
 
-        Console.WriteLine("Pontuação Total: " + calcularPontuacaoTotal());
+        Console.WriteLine($"Pontuação Total: {calcularPontuacaoTotal()}");
     }
 }
